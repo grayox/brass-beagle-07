@@ -1,0 +1,49 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+<link rel="import" href="/src/app-user/user-preferences.html">
+<link rel="import" href="/src/app-user/user-profile.html">
+
+<dom-module id="view-archive">
+  <template>
+		<style></style>
+		
+		<user-preferences></user-preferences>
+		<user-profile></user-profile>
+		
+  </template>
+
+  <script>
+    class ViewArchive extends Polymer.Element {
+      static get is() { return 'view-archive'; }
+
+      static get properties() {
+        /**/
+        return {
+					itemReset: {
+						type: Object,
+						notify: true,
+						computed: '_computeItemReset(item)',
+					},
+				};
+				/**/
+      }
+			
+			constructor() {
+				super();
+			}
+			
+			/**/
+			ready() {
+        super.ready();
+        //window.addEventListener('user-action-select', (e) => this.onUserActionSelect(e));
+        //window.addEventListener('iron-form-element-register', (e) => this._onIronFormElementRegister(e));
+				//this.set('active', false);
+			}
+			/**/
+			
+    }
+
+    window.customElements.define(ViewArchive.is, ViewArchive);
+  </script>
+</dom-module>

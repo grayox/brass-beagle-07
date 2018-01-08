@@ -1,0 +1,65 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+<!---->
+<link rel="import" href="/bower_components/iron-collapse/iron-collapse.html">
+<!---->
+
+<dom-module id="add-outbox-item">
+  <template>
+		<style></style>
+    <!---->
+    <iron-collapse id="collapse" class="collapse" opened xopened="{{opened}}">
+      <div class="collapse-content">
+        <paper-input label="[[description]]"
+        value="{{text}}"
+        >
+      </paper-input>
+      Add Outbox item
+      <div class="buttons">
+        <!---->
+          <paper-button class="cancel">Cancel</paper-button>
+          <!---->
+          <paper-button class="reset" on-tap="_reset">Clear</paper-button>
+          <paper-button class="save" on-tap="_save">Save</paper-button>
+        </div>
+      </div>
+    </iron-collapse>
+    <!---->
+		
+	</template>
+
+  <script>
+    class AddOutboxItem extends Polymer.Element {
+      static get is() { return 'add-outbox-item'; }
+
+      static get properties() { return {
+				items: {
+					type: Object,
+					notify: true,
+					//observer: '_itemsChanged',
+				},
+			}}
+			
+			constructor() {
+				super();
+			}
+			
+			/** /
+			ready() {
+        super.ready();
+        window.addEventListener('user-action-select', (e) => this.onUserActionSelect(e));
+      }
+			/**/
+			
+			/** /
+			_itemsChanged(o) {
+				console.log('items', o);
+			}
+			/**/
+		
+		}
+
+    window.customElements.define(AddOutboxItem.is, AddOutboxItem);
+  </script>
+</dom-module>

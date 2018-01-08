@@ -1,0 +1,102 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+<script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+<link rel="import" href="/src/app-database/database-inbox.html">
+
+<link rel="import" href="/bower_components/iron-list/iron-list.html">
+<!---->
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<!---->
+<link rel="import" href="inbox-item.html">
+
+<dom-module id="view-inbox">
+  <template>
+		
+    <style>
+      iron-list {
+        @apply --layout-flex;
+				height: 100vh;
+      }
+    </style>
+		
+		<!--- ->
+    Reference: https://github.com/PolymerElements/iron-list/blob/master/demo/selection.html
+    Resizing Demo: https://plnkr.co/edit/62XPn8eukoIm91YCjvoi?p=preview
+		<!---->
+		
+    <database-inbox items-available="{{itemsAvailable}}"
+										items-received="{{itemsReceived}}"
+										>
+		</database-inbox>
+		
+		<inbox-item-dialog id="dialog"></inbox-item-dialog>
+		
+		<!--- ->
+		View Inbox
+		<!---->
+    <iron-list id="itemsList"
+							 items="[[itemsReceived]]"
+							 selected-items="{{selectedItems}}"
+							 selection-enabled
+							 xmulti-selection
+							 >
+			<template>
+				<inbox-item item="[[item]]"
+										on-inbox-item-tapped="_onInboxItemTapped"
+										>
+				</inbox-item>
+			</template>
+		</iron-list>
+		<!---->
+		
+	</template>
+
+  <script>
+    class ViewInbox extends Polymer.mixinBehaviors([Polymer.IronResizableBehavior], Polymer.Element) {
+      static get is() { return 'view-inbox'; }
+
+      static get properties() { return {
+				itemsAvailable: {
+					type: Object,
+					notify: true,
+					//observer: '_itemsAvailableChanged',
+				},
+				itemsReceived: {
+					type: Object,
+					notify: true,
+					//observer: '_itemsReceivedChanged',
+				},
+			}}
+			
+			constructor() {
+				super();
+			}
+			
+			/** /
+			ready() {
+        super.ready();
+			}
+			/**/
+			
+			_onInboxItemTapped(e) {
+				//console.log('e', e);
+				const data = e.detail.item;
+				//console.log('data', data);
+			}
+			/**/
+			
+			/** /
+			_itemsAvailableChanged(o) {
+				console.log('items-available', o);
+			}
+			
+			_itemsReceivedChanged(o) {
+				console.log('items-received', o);
+			}
+			/**/
+			
+		}
+
+    window.customElements.define(ViewInbox.is, ViewInbox);
+  </script>
+</dom-module>
